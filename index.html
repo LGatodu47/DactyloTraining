@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DactyloTraining</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- Text Management Section -->
+            <div>
+                <button id="import_file_btn" title="Import File" onclick="openDialog('select_file')"></button>
+                <button id="import_text_btn" title="Import Text" onclick="openDialog('write_text')"></button>
+                <button id="import_word_btn" title="Import Word" onclick="openDialog('repeat_word')"></button>
+                <!-- Builtin text might be added in the future, for now I just don't know what to make for builtins -->
+                <!-- <button id="builtin_text_btn" title="Select Builtin"></button> -->
+            </div>
+            <!-- Customization Section -->
+            <div>
+                <button id="color_theme_btn" title="Change Color Theme" onclick="openDialog('select_theme')"></button>
+                <button id="sound_settings_btn" title="Mute" onclick="changeMuteState()"></button>
+            </div>
+            <!-- Current Session Section -->
+            <div>
+                <button id="restart_btn" title="Start Over" onclick="restart()"></button>
+                <button id="time_visibility_btn" title="Hide Time" onclick="changeTimeVisibility()"></button>
+                <button id="perfect_mode_btn" title="Toggle Perfect Mode" onclick="togglePerfectMode()"></button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="content">
+        <p>Text to write:</p>
+        <pre id="input" name="input" wrap="off" spellcheck="false" autofocus contenteditable="true"></pre>
+        <div id="subtext_div">
+            <p id="errors_text">Errors: <span id="error_counter">0</span></p>
+            <p id="time_text">Time: <span id="time">0</span> seconds</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© LGatodu47 - 2023</p>
+    </footer>
+
+    <dialog id="select_file">
+        <p>Select File: <input type="file" id="file_input"></p>
+        <div class="control_buttons">
+            <button onclick="closeDialog()">Cancel</button>
+            <button class="confirm_button" onclick="acceptInputFile()" disabled>Done</button>
+        </div>
+    </dialog>
+
+    <dialog id="write_text">
+        <p>Write Text:</p>
+        <textarea name="text_input" id="text_input" cols="80" rows="10"></textarea>
+        <div class="control_buttons">
+            <button onclick="closeDialog()">Cancel</button>
+            <button class="confirm_button" onclick="acceptInputText()" disabled>Done</button>
+        </div>
+    </dialog>
+
+    <dialog id="repeat_word">
+        <p>Word to repeat: <input type="text" id="word_input" maxlength="32"></p>
+        <p>Repeat <input type="number" id="word_number_input" min="1" max="99999"> times</p>
+        <div class="control_buttons">
+            <button onclick="closeDialog()">Cancel</button>
+            <button class="confirm_button" onclick="acceptInputWord()" disabled>Done</button>
+        </div>
+    </dialog>
+
+    <dialog id="select_theme">
+        <p>Select a theme:</p>
+        <div id="theme_options">
+            <button id="deep_blue_theme_btn" onclick="setTheme(DEEP_PURPLE_THEME)">Deep Purple</button>
+            <button id="gray_theme_btn" onclick="setTheme(GRAY_THEME)">Classic</button>
+            <button id="green_theme_btn" onclick="setTheme(GREEN_THEME)">Jungle Green</button>
+        </div>
+        <div class="control_buttons">
+            <button onclick="closeDialog()">Close</button>
+        </div>
+    </dialog>
+    
+    <!-- A dark overlay shown when dialogs are opened. -->
+    <div id="overlay" hidden></div>
+
+    <script src="index.js"></script>
+    <script src="theme.js"></script>
+</body>
+</html>
